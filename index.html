@@ -1,913 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>VANISH BUBBLE | OFFICIAL</title>
-<meta name="description" content="VANISH BUBBLE Official Esports Team">
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background:#03070b;
-  color:#fff;
-  font-family:
-    Inter,
-    "Noto Sans JP",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  line-height:1.6;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-.container{
-  width:min(1180px,92%);
-  margin:auto;
-}
-
-/* HEADER */
-
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:1000;
-  background:rgba(3,7,11,.86);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.nav{
-  height:74px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:20px;
-  font-weight:1000;
-  letter-spacing:.08em;
-}
-
-.logo span{
-  color:#82b8e9;
-}
-
-nav{
-  display:flex;
-  gap:28px;
-}
-
-nav a{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.15em;
-  opacity:.7;
-  transition:.25s;
-}
-
-nav a:hover{
-  opacity:1;
-  color:#82b8e9;
-}
-
-/* HERO */
-
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(
-      circle at 75% 45%,
-      rgba(21,64,106,.9),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #020509 0%,
-      #0a1d2d 100%
-    );
-}
-
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:.18;
-  background:
-    repeating-linear-gradient(
-      115deg,
-      transparent 0 120px,
-      #fff 121px 122px
-    );
-}
-
-.hero:after{
-  content:"VB";
-  position:absolute;
-  right:-5vw;
-  bottom:-14vw;
-  font-size:46vw;
-  line-height:.8;
-  font-weight:1000;
-  color:rgba(255,255,255,.025);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  padding-top:80px;
-}
-
-.eyebrow{
-  color:#82b8e9;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.35em;
-}
-
-.hero h1{
-  font-size:clamp(65px,11vw,145px);
-  line-height:.78;
-  letter-spacing:-.075em;
-  margin:25px 0;
-}
-
-.hero h1 span{
-  color:#82b8e9;
-}
-
-.hero p{
-  color:#b8c3cc;
-  font-size:16px;
-  line-height:2;
-}
-
-.buttons{
-  margin-top:25px;
-}
-
-.btn{
-  display:inline-block;
-  padding:14px 24px;
-  margin-right:8px;
-  border:1px solid rgba(255,255,255,.18);
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.12em;
-  transition:.25s;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-  border-color:#82b8e9;
-  color:#82b8e9;
-}
-
-.btn-primary{
-  background:#15406A;
-  border-color:#15406A;
-}
-
-/* SECTION */
-
-section{
-  padding:110px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.section-title{
-  font-size:clamp(42px,6vw,75px);
-  line-height:.9;
-  letter-spacing:-.06em;
-  margin:12px 0 25px;
-}
-
-.muted{
-  color:#93a0ab;
-}
-
-/* ABOUT */
-
-.about{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:80px;
-}
-
-.about-text{
-  color:#aab5bd;
-  line-height:2;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  margin-top:35px;
-  gap:1px;
-  background:rgba(255,255,255,.1);
-}
-
-.stat{
-  background:#09131e;
-  padding:25px;
-}
-
-.stat strong{
-  display:block;
-  font-size:32px;
-}
-
-.stat small{
-  color:#71808c;
-  font-size:9px;
-  letter-spacing:.15em;
-}
-
-/* CARDS */
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:40px;
-}
-
-.card{
-  min-height:200px;
-  padding:28px;
-  border:1px solid rgba(255,255,255,.08);
-  background:
-    linear-gradient(
-      145deg,
-      #0c1e2d,
-      #07111a
-    );
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(130,184,233,.45);
-}
-
-.tag{
-  color:#82b8e9;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.2em;
-}
-
-.card h3{
-  font-size:24px;
-  margin:12px 0 8px;
-}
-
-.card p{
-  color:#8e9ba5;
-  font-size:12px;
-  line-height:1.8;
-}
-
-.social{
-  display:inline-block;
-  margin-top:15px;
-  color:#82b8e9;
-  font-size:11px;
-  font-weight:900;
-}
-
-/* NEWS */
-
-.news{
-  margin-top:35px;
-  border-top:1px solid rgba(255,255,255,.1);
-}
-
-.news-item{
-  display:grid;
-  grid-template-columns:120px 1fr 70px;
-  align-items:center;
-  gap:20px;
-  padding:24px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.date{
-  color:#82b8e9;
-  font-size:10px;
-}
-
-.news-item h3{
-  font-size:14px;
-}
-
-.view{
-  color:#82b8e9;
-  font-size:10px;
-}
-
-/* PARTNERS */
-
-.partners{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-top:35px;
-}
-
-.partner{
-  height:110px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#09131e;
-  border:1px solid rgba(255,255,255,.08);
-  font-weight:900;
-}
-
-.coming{
-  color:#61707c;
-  font-size:10px;
-}
-
-/* CONTACT */
-
-.contact{
-  text-align:center;
-  background:
-    linear-gradient(
-      120deg,
-      #15406A,
-      #091b2d
-    );
-}
-
-.contact .muted{
-  color:#d1dce4;
-  max-width:600px;
-  margin:0 auto 25px;
-}
-
-/* FOOTER */
-
-footer{
-  padding:30px 0;
-  color:#64727e;
-  font-size:9px;
-}
-
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-}
-
-/* MOBILE */
-
-@media(max-width:760px){
-
-  nav{
-    display:none;
-  }
-
-  .about{
-    grid-template-columns:1fr;
-    gap:40px;
-  }
-
-  .cards{
-    grid-template-columns:1fr;
-  }
-
-  .partners{
-    grid-template-columns:1fr;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .news-item{
-    grid-template-columns:1fr;
-    gap:8px;
-  }
-
-  .footer-inner{
-    display:block;
-  }
-
-  .hero h1{
-    font-size:20vw;
-  }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06121e">
+  <meta name="description" content="VANISH BUBBLE — WE VANISH. TO THE NEXT LEVEL.">
+  <title>VANISH BUBBLE | OFFICIAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
-<header>
-  <div class="container nav">
-
-    <a href="#" class="logo">
-      VANISH <span>BUBBLE</span>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="VANISH BUBBLE home">
+      <img src="assets/logo.png" alt="VANISH BUBBLE">
+      <span><strong>VANISH BUBBLE</strong><small>PROFESSIONAL ESPORTS</small></span>
     </a>
-
-    <nav>
-      <a href="#about">ABOUT</a>
-      <a href="#teams">TEAMS</a>
-      <a href="#roster">ROSTER</a>
-      <a href="#news">NEWS</a>
-      <a href="#partners">PARTNERS</a>
-      <a href="#contact">CONTACT</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#news">NEWS</a><a href="#players">PLAYERS</a><a href="#results">RESULTS</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a>
     </nav>
+    <button class="menu" aria-label="メニューを開く" aria-expanded="false"><i></i><i></i></button>
+  </header>
 
-  </div>
-</header>
-
-
-<main>
-
-<!-- HERO -->
-
-<section class="hero">
-
-  <div class="container hero-content">
-
-    <div class="eyebrow">
-      OFFICIAL ESPORTS TEAM / JAPAN
-    </div>
-
-    <h1>
-      VANISH<br>
-      <span>BUBBLE.</span>
-    </h1>
-
-    <p>
-      競技も、コンテンツも、カルチャーも。<br>
-      ゲームを起点に、新しい熱狂をつくる。
-    </p>
-
-    <div class="buttons">
-      <a href="#roster" class="btn btn-primary">
-        MEET THE TEAM
-      </a>
-
-      <a href="#partners" class="btn">
-        PARTNERSHIP
-      </a>
-    </div>
-
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="#news">NEWS <span>01</span></a>
+    <a href="#players">PLAYERS <span>02</span></a>
+    <a href="#results">RESULTS <span>03</span></a>
+    <a href="#about">ABOUT <span>04</span></a>
+    <a href="#contact">CONTACT <span>05</span></a>
   </div>
 
-</section>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-lines" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span> VANISH BUBBLE / EST. 2024</p>
+          <h1>WE<br><em>VANISH.</em></h1>
+          <p class="hero-sub">TO THE NEXT LEVEL.</p>
+          <p class="hero-ja">勝つために、消える。<br>次のレベルへ。</p>
+          <a class="arrow-btn" href="#about">ABOUT VANISH BUBBLE <b>↗</b></a>
+        </div>
+        <div class="hero-mark reveal delay"><div class="mark-ring"></div><img src="assets/logo.png" alt=""></div>
+      </div>
+      <div class="hero-side">#WEVANISH</div>
+      <div class="scroll-indicator"><span>SCROLL</span><i></i></div>
+    </section>
 
+    <section class="section news section-dark" id="news">
+      <div class="section-head reveal"><div><span>01</span><h2>NEWS</h2></div><a href="#news">VIEW ALL <b>↗</b></a></div>
+      <div class="news-grid">
+        <article class="news-main card-hover reveal">
+          <div class="abstract-photo"><span>VB</span></div>
+          <div class="news-main-content"><p class="meta">NEWS <time>2026.08.31</time></p><h3>VANISH BUBBLE<br>OFFICIAL SITE OPEN.</h3><p>VANISH BUBBLEのオフィシャルサイトを公開しました。</p><a href="#about">READ MORE <b>↗</b></a></div>
+        </article>
+        <div class="news-list">
+          <article class="news-item card-hover reveal"><div><p class="meta">INFO <time>2026.08.31</time></p><h3>OFFICIAL WEBSITE<br>LAUNCH</h3></div><b>↗</b></article>
+          <article class="news-item card-hover reveal"><div><p class="meta">TEAM <time>COMING SOON</time></p><h3>ROSTER &<br>PLAYER INFO</h3></div><b>↗</b></article>
+          <article class="news-item card-hover reveal"><div><p class="meta">GOODS <time>COMING SOON</time></p><h3>VANISH BUBBLE<br>OFFICIAL GOODS</h3></div><b>↗</b></article>
+        </div>
+      </div>
+    </section>
 
-<!-- ABOUT -->
+    <section class="section players" id="players">
+      <div class="section-head reveal"><div><span>02</span><h2>PLAYERS</h2></div><span class="coming">ROSTER — COMING SOON</span></div>
+      <div class="players-grid">
+        <article class="player-card reveal"><div class="player-art"><span>01</span><div class="silhouette s1"></div></div><div class="player-info"><small>PLAYER / 01</small><h3>COMING<br>SOON</h3><p>VANISH BUBBLE</p></div></article>
+        <article class="player-card reveal"><div class="player-art"><span>02</span><div class="silhouette s2"></div></div><div class="player-info"><small>PLAYER / 02</small><h3>COMING<br>SOON</h3><p>VANISH BUBBLE</p></div></article>
+        <article class="player-card reveal"><div class="player-art"><span>03</span><div class="silhouette s3"></div></div><div class="player-info"><small>PLAYER / 03</small><h3>COMING<br>SOON</h3><p>VANISH BUBBLE</p></div></article>
+        <article class="player-card reveal"><div class="player-art"><span>04</span><div class="silhouette s4"></div></div><div class="player-info"><small>PLAYER / 04</small><h3>COMING<br>SOON</h3><p>VANISH BUBBLE</p></div></article>
+      </div>
+    </section>
 
-<section id="about">
-
-  <div class="container">
-
-    <div class="about">
-
+    <section class="section split section-dark" id="results">
       <div>
-
-        <div class="eyebrow">
-          01 / ABOUT
+        <div class="section-head reveal"><div><span>03</span><h2>RESULTS</h2></div><span class="coming">RECENT RECORD</span></div>
+        <div class="result-list">
+          <div class="result reveal"><time>2026.08</time><strong>TOURNAMENT</strong><span>—</span></div>
+          <div class="result reveal"><time>2026.07</time><strong>TOURNAMENT</strong><span>—</span></div>
+          <div class="result reveal"><time>2026.06</time><strong>TOURNAMENT</strong><span>—</span></div>
         </div>
-
-        <h2 class="section-title">
-          PLAY.<br>
-          CREATE.<br>
-          VANISH.
-        </h2>
-
+        <p class="muted-note">大会実績・部門情報は確定次第アップデートします。</p>
       </div>
-
-      <div>
-
-        <p class="about-text">
-          VANISH BUBBLEは、競技シーンだけに留まらず、
-          選手・ストリーマー・コミュニティを通して
-          eスポーツの魅力を広げるチームです。
-          <br><br>
-          勝利、発信、つながり。
-          そのすべてを本気で追いかけます。
-        </p>
-
-        <div class="stats">
-
-          <div class="stat">
-            <strong>15+</strong>
-            <small>MEMBERS</small>
-          </div>
-
-          <div class="stat">
-            <strong>JPN</strong>
-            <small>JAPAN</small>
-          </div>
-
-          <div class="stat">
-            <strong>VB</strong>
-            <small>ESPORTS</small>
-          </div>
-
-        </div>
-
+      <div class="manifesto reveal">
+        <span class="label">04 / MANIFESTO</span>
+        <h2>MAKE<br>NOISE.<br><em>VANISH.</em></h2>
+        <p>競技、クリエイティブ、コミュニティ。<br>すべてをひとつにして、次の景色へ。</p>
       </div>
+    </section>
 
+    <section class="section about" id="about">
+      <div class="about-head reveal"><span class="label">05 / ABOUT</span><h2>WE VANISH.<br>TO THE NEXT LEVEL.</h2></div>
+      <div class="about-copy reveal"><p>VANISH BUBBLEは、ゲームを起点に新しい価値を生み出すeスポーツチームです。</p><p>勝利だけではなく、そこへ向かう姿勢そのものをカルチャーに。静かに、鋭く、次のレベルへ進みます。</p><a class="text-link" href="#contact">GET IN TOUCH <b>↗</b></a></div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="contact-inner reveal">
+        <span class="label">06 / CONTACT</span>
+        <h2>LET'S<br><em>VANISH.</em></h2>
+        <p>お問い合わせ・コラボレーションはこちら。</p>
+        <a class="contact-btn" href="mailto:contact@vanishbubble.jp">CONTACT US <b>↗</b></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-top">
+      <a class="footer-brand" href="#top"><img src="assets/logo.png" alt="VANISH BUBBLE"><div><strong>VANISH BUBBLE</strong><span>WE VANISH. / TO THE NEXT LEVEL.</span></div></a>
+      <div class="footer-nav"><a href="#news">NEWS</a><a href="#players">PLAYERS</a><a href="#results">RESULTS</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a></div>
+      <div class="social"><span>SOCIAL</span><a href="#">X ↗</a><a href="#">INSTAGRAM ↗</a><a href="#">YOUTUBE ↗</a></div>
     </div>
-
-  </div>
-
-</section>
-
-
-<!-- TEAMS -->
-
-<section id="teams">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      02 / TEAMS
-    </div>
-
-    <h2 class="section-title">
-      DIVISIONS
-    </h2>
-
-    <p class="muted">
-      競技と発信、それぞれのフィールドで挑戦する。
-    </p>
-
-    <div class="cards">
-
-      <div class="card">
-        <div class="tag">
-          01 / COMPETITIVE
-        </div>
-
-        <h3>VALORANT</h3>
-
-        <p>
-          VALORANT部門。
-          競技シーンでの活動・選手情報を掲載します。
-        </p>
-      </div>
-
-
-      <div class="card">
-        <div class="tag">
-          02 / COMPETITIVE
-        </div>
-
-        <h3>FIGHTING GAMES</h3>
-
-        <p>
-          Street Fighter 6を中心とした
-          格闘ゲーム部門。
-        </p>
-      </div>
-
-
-      <div class="card">
-        <div class="tag">
-          03 / CREATOR
-        </div>
-
-        <h3>STREAMER</h3>
-
-        <p>
-          ゲームを起点に個性とコンテンツを
-          発信するクリエイター部門。
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ROSTER -->
-
-<section id="roster">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      03 / ROSTER
-    </div>
-
-    <h2 class="section-title">
-      ROSTER
-    </h2>
-
-    <p class="muted">
-      現在公開情報から確認できるメンバーを掲載しています。
-    </p>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <div class="tag">
-          SF6 DIVISION
-        </div>
-
-        <h3>だしまき</h3>
-
-        <p>
-          VANISH BUBBLE所属のSF6プレイヤー。
-        </p>
-
-        <a
-          class="social"
-          href="https://x.com/Das1mk_r0te1"
-          target="_blank">
-          @Das1mk_r0te1 ↗
-        </a>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="tag">
-          SF6 DIVISION
-        </div>
-
-        <h3>りゅうなん!!</h3>
-
-        <p>
-          VANISH BUBBLE SF6部門所属。
-        </p>
-
-        <a
-          class="social"
-          href="https://x.com/ryuunan_vrt"
-          target="_blank">
-          @ryuunan_vrt ↗
-        </a>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="tag">
-          OWNER / SF6
-        </div>
-
-        <h3>sora</h3>
-
-        <p>
-          VANISH BUBBLEのオーナー。
-          SF6プレイヤーとしても活動。
-        </p>
-
-        <a
-          class="social"
-          href="https://x.com/soraptl"
-          target="_blank">
-          @soraptl ↗
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- RESULTS -->
-
-<section>
-
-  <div class="container">
-
-    <div class="eyebrow">
-      04 / RESULTS
-    </div>
-
-    <h2 class="section-title">
-      ACHIEVEMENTS
-    </h2>
-
-    <div class="cards">
-
-      <div class="card">
-        <div class="tag">TEAM</div>
-        <h3>VANISH BUBBLE</h3>
-        <p>
-          チーム大会結果・リーグ戦績を掲載。
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="tag">SF6</div>
-        <h3>COMPETITIVE</h3>
-        <p>
-          選手ごとの大会実績を掲載。
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="tag">MEDIA</div>
-        <h3>ACTIVITY</h3>
-        <p>
-          イベント・出演・コミュニティ活動。
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- NEWS -->
-
-<section id="news">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      05 / NEWS
-    </div>
-
-    <h2 class="section-title">
-      LATEST
-    </h2>
-
-    <div class="news">
-
-      <div class="news-item">
-
-        <div class="date">
-          2026.08
-        </div>
-
-        <h3>
-          VANISH BUBBLE 最新ニュース
-        </h3>
-
-        <a
-          class="view"
-          href="https://x.com/VANISHBUBBLE_"
-          target="_blank">
-          VIEW ↗
-        </a>
-
-      </div>
-
-
-      <div class="news-item">
-
-        <div class="date">
-          2026.07
-        </div>
-
-        <h3>
-          VALORANT部門 選手募集
-        </h3>
-
-        <a
-          class="view"
-          href="https://x.com/VANISHBUBBLE_"
-          target="_blank">
-          VIEW ↗
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- PARTNERS -->
-
-<section id="partners">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      06 / PARTNERS
-    </div>
-
-    <h2 class="section-title">
-      PARTNERS
-    </h2>
-
-    <p class="muted">
-      VANISH BUBBLEを支えるパートナー。
-    </p>
-
-    <div class="partners">
-
-      <a
-        class="partner"
-        href="https://x.com/OSKAesports"
-        target="_blank">
-        OSKA esports
-      </a>
-
-      <div class="partner coming">
-        PARTNER / COMING SOON
-      </div>
-
-      <div class="partner coming">
-        PARTNER / COMING SOON
-      </div>
-
-      <div class="partner coming">
-        PARTNER / COMING SOON
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section id="contact" class="contact">
-
-  <div class="container">
-
-    <div class="eyebrow">
-      07 / CONTACT
-    </div>
-
-    <h2 class="section-title">
-      LET'S BUILD<br>
-      SOMETHING.
-    </h2>
-
-    <p class="muted">
-      スポンサー・パートナー・選手・
-      ストリーマーに関するお問い合わせ。
-    </p>
-
-    <a
-      class="btn"
-      href="mailto:info@vanishbubble.jp">
-      info@vanishbubble.jp
-    </a>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-  <div class="container footer-inner">
-
-    <div>
-      © 2026 VANISH BUBBLE. ALL RIGHTS RESERVED.
-    </div>
-
-    <div>
-      X / @VANISHBUBBLE_
-    </div>
-
-  </div>
-
-</footer>
-
+    <div class="footer-bottom"><span>#WEVANISH</span><small>© 2026 VANISH BUBBLE. ALL RIGHTS RESERVED.</small><span>JAPAN / ONLINE</span></div>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
