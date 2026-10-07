@@ -126,8 +126,8 @@
     z-index: 999;
     overflow: hidden;
     background:
-      radial-gradient(900px 600px at 50% 110%, rgba(44,85,120,.55) 0%, transparent 65%),
-      var(--ink);
+      radial-gradient(1000px 700px at 50% 115%, rgba(44,85,120,.85) 0%, transparent 65%),
+      linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
     animation: intro-overlay-out 0.45s ease 2.35s forwards;
   }
   @keyframes intro-overlay-out{
@@ -142,10 +142,10 @@
     width: var(--s); height: var(--s);
     margin-left: calc(var(--s) / -2);
     border-radius: 50%;
-    border: 1px solid var(--sheen-soft);
+    border: max(2px, calc(var(--s) * 0.035)) solid #8fd0ff;
     background:
-      radial-gradient(circle at 32% 28%, rgba(236,230,220,0.9), rgba(156,143,176,0.28) 42%, rgba(199,154,120,0.14) 72%, rgba(27,56,82,0) 100%);
-    box-shadow: inset 0 0 12px rgba(236,230,220,.18), 0 0 18px rgba(156,143,176,.18);
+      radial-gradient(circle at 50% 55%, rgba(63,140,214,.10) 40%, rgba(94,176,240,.38) 78%, rgba(143,208,255,.62) 100%);
+    box-shadow: inset 0 -6px 14px rgba(44,85,120,.45), 0 0 16px rgba(94,176,240,.35);
     opacity: 0;
     transform: translate(0, 40px) scale(.6);
     animation:
@@ -164,6 +164,20 @@
     45%{ transform: translate(calc(var(--sway) * .3px), var(--rise)) scale(1.25); opacity: .9; }
     100%{ transform: translate(calc(var(--sway) * .3px), var(--rise)) scale(1.6); opacity: 0; }
   }
+  .bub::before{ /* アニメ風ハイライト（三日月） */
+    content:""; position:absolute;
+    top: 14%; left: 14%; width: 34%; height: 22%;
+    border-radius: 50%;
+    background: #fff;
+    opacity: .92;
+    transform: rotate(-38deg);
+  }
+  .bub::after{ /* 小さな光の粒 */
+    content:""; position:absolute;
+    top: 46%; left: 15%; width: 9%; height: 9%;
+    border-radius: 50%;
+    background: #fff; opacity: .85;
+  }
   .bub .drop{
     position: absolute; top: 50%; left: 50%;
     width: 6px; height: 6px; margin: -3px;
@@ -177,7 +191,7 @@
   }
   @media (prefers-reduced-motion: reduce){
     .intro-overlay{ display:none; }
-    .wordmark .l1,.wordmark .l2,.hero-rule,.tagline{ opacity:1 !important; animation:none !important; }
+    .wordmark .l1,.wordmark .l2,.hero-rule,.tagline,.scroll-cue{ opacity:1 !important; animation:none !important; }
   }
 
   /* ---------- HERO ---------- */
@@ -193,7 +207,7 @@
       radial-gradient(900px 600px at 15% 100%, var(--wine) 0%, transparent 60%),
       var(--ink);
   }
-  .hero-inner{ position: relative; z-index: 2; }
+  .hero-inner{ position: relative; z-index: 2; text-align: center; }
   .wordmark{
     line-height: 0.86;
   }
@@ -224,18 +238,51 @@
   .hero-rule{
     width: 64px; height: 1px;
     background: var(--sheen);
-    margin: clamp(28px,4vw,40px) 0 18px;
+    margin: clamp(28px,4vw,40px) auto 18px;
     opacity: 0;
     animation: fade-in 1s ease 2.95s forwards;
   }
   .tagline{
     max-width: 46ch;
+    margin-left: auto; margin-right: auto;
     font-size: clamp(15px, 1.6vw, 18px);
     color: var(--mist);
     opacity: 0;
     animation: fade-in 1s ease 3.1s forwards;
   }
   @keyframes fade-in{ from{opacity:0;} to{opacity:1;} }
+
+  .scroll-cue{
+    position: absolute;
+    left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 0.32em; text-indent: 0.32em;
+    color: var(--mist);
+    opacity: 0;
+    animation: fade-in 1s ease 3.4s forwards;
+  }
+  .scroll-cue .line{
+    position: relative;
+    width: 1px; height: 56px;
+    background: var(--hair-strong);
+    overflow: hidden;
+  }
+  .scroll-cue .line::after{
+    content:""; position:absolute; left:0; top:0;
+    width:100%; height: 45%;
+    background: linear-gradient(180deg, transparent, #8fd0ff);
+    animation: scroll-drop 1.8s cubic-bezier(.6,0,.3,1) 3.6s infinite;
+  }
+  .scroll-cue .dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #8fd0ff; margin-top: -6px;
+    animation: scroll-dot 1.8s ease-in-out 3.6s infinite;
+  }
+  .scroll-cue:hover{ color: var(--bone); }
+  @keyframes scroll-drop{ 0%{ transform: translateY(-100%); } 70%,100%{ transform: translateY(230%); } }
+  @keyframes scroll-dot{ 0%,55%{ opacity:0; transform: translateY(0) scale(.6);} 75%{ opacity:1; transform: translateY(0) scale(1);} 100%{ opacity:0; transform: translateY(4px) scale(1.3);} }
 
   /* ---------- SECTION SHELL ---------- */
   section{ position: relative; }
@@ -407,6 +454,7 @@
     <div class="hero-rule"></div>
     <p class="tagline">Vanish the Limits.</p>
   </div>
+  <a class="scroll-cue" href="#titles" aria-label="下へスクロール"><span>SCROLL</span><span class="line"></span><span class="dot"></span></a>
 </section>
 
 <section class="section-pad" id="titles">
@@ -507,7 +555,7 @@
 <script>
 (function(){
   var box=document.getElementById('intro'); if(!box) return;
-  var cols=['var(--bone)','var(--sheen)','var(--lav)'];
+  var cols=['#ffffff','#8fd0ff','#4aa3e8'];
   var N=26, vh=window.innerHeight, frag=document.createDocumentFragment();
   for(var i=0;i<N;i++){
     var size=Math.round(22+Math.random()*(i%5===0?90:52));
