@@ -204,7 +204,7 @@
     background:
       radial-gradient(1000px 700px at 50% 115%, rgba(44,85,120,.85) 0%, transparent 65%),
       linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
-    animation: intro-overlay-out 0.45s ease 2.35s forwards;
+    animation: intro-overlay-out 0.5s ease 2.85s forwards;
   }
   @keyframes intro-overlay-out{
     0%{ opacity:1; visibility:visible; }
@@ -266,8 +266,21 @@
     100%{ transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce){
-    .intro-overlay{ display:none; }
+    /* Respect OS accessibility settings; keep a brief static intro instead of a blank frame. */
+    .intro-overlay{ animation: intro-overlay-out .15s linear .25s forwards !important; }
     .wordmark .l1,.wordmark .l2,.hero-rule,.tagline,.scroll-cue{ opacity:1 !important; animation:none !important; }
+  }
+
+  /* Make the opening bubbles clearly visible on wide desktop screens. */
+  @media (min-width: 701px) and (prefers-reduced-motion: no-preference){
+    .intro-overlay{
+      background:
+        radial-gradient(1300px 800px at 50% 110%, rgba(44,85,120,.9) 0%, transparent 70%),
+        linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
+    }
+    .bub{
+      box-shadow: inset 0 -6px 14px rgba(44,85,120,.45), 0 0 24px rgba(143,208,255,.52);
+    }
   }
 
   /* ---------- HERO ---------- */
@@ -658,7 +671,7 @@
     frag.appendChild(b);
   }
   box.appendChild(frag);
-  setTimeout(function(){ if(box.parentNode) box.remove(); }, 3200);
+  setTimeout(function(){ if(box.parentNode) box.remove(); }, 3900);
 })();
 </script>
 <script>
