@@ -176,6 +176,25 @@
     .menu-toggle{ width:42px; height:42px; }
   }
 
+  /* ---------- SECTION TRANSITIONS ---------- */
+  /* Keep content visible without JavaScript; animate only while JS is active. */
+  @media (prefers-reduced-motion: no-preference){
+    .section-pad .wrap{
+      transition: opacity .55s ease, transform .55s cubic-bezier(.2,.75,.25,1);
+    }
+    .section-pad.reveal-pending .wrap{
+      opacity:0;
+      transform:translateY(18px);
+    }
+    .section-pad.reveal-visible .wrap{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+
   /* ---------- INTRO (many bubbles rise & pop) ---------- */
   .intro-overlay{
     position: fixed;
@@ -491,7 +510,7 @@
     <span>VANISH BUBBLE</span>
   </div>
   <div class="nav-right">
-    <a class="shop-btn" href="https://novanish.official.ec/" target="_blank" rel="noopener noreferrer">SHOP</a>
+    <a class="shop-btn" href="https://vyze.official.ec/" target="_blank" rel="noopener noreferrer">SHOP</a>
     <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-menu">
       <span></span><span></span><span></span>
     </button>
@@ -670,6 +689,32 @@
   });
   document.addEventListener('click',function(event){
     if(!menu.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+  });
+})();
+</script>
+<script>
+(function(){
+  /* Gentle fade-and-rise when navigating or scrolling to each section. */
+  if(!('IntersectionObserver' in window) ||
+     window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sections=document.querySelectorAll('.section-pad[id]');
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.remove('reveal-pending');
+        entry.target.classList.add('reveal-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -25px 0px'});
+  sections.forEach(function(section){
+    var rect=section.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      section.classList.add('reveal-visible');
+    }else{
+      section.classList.add('reveal-pending');
+      observer.observe(section);
+    }
   });
 })();
 </script>
