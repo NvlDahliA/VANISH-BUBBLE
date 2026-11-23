@@ -274,6 +274,7 @@
   /* Make the opening bubbles clearly visible on wide desktop screens. */
   @media (min-width: 701px) and (prefers-reduced-motion: no-preference){
     .intro-overlay{
+      animation: intro-overlay-out 0.55s ease 8.1s forwards;
       background:
         radial-gradient(1300px 800px at 50% 110%, rgba(44,85,120,.9) 0%, transparent 70%),
         linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
@@ -657,7 +658,7 @@
   var N=desktop?48:26, vh=window.innerHeight, frag=document.createDocumentFragment();
   for(var i=0;i<N;i++){
     var size=Math.round(desktop ? (26+Math.random()*(i%5===0?105:62)) : (22+Math.random()*(i%5===0?90:52)));
-    var dur=desktop ? (1.65+Math.random()*0.9) : (0.95+Math.random()*0.85), d=desktop ? (0.15+Math.random()*1.1) : Math.random()*0.75;
+    var dur=desktop ? (3.3+Math.random()*1.8) : (0.95+Math.random()*0.85), d=desktop ? (0.3+Math.random()*2.2) : Math.random()*0.75;
     var x=(4+(i/(N-1))*92+(Math.random()-.5)*8);
     var rise=-(vh*(desktop ? (0.45+Math.random()*0.55) : (0.35+Math.random()*0.55)));
     var b=document.createElement('span'); b.className='bub';
@@ -671,7 +672,7 @@
     frag.appendChild(b);
   }
   box.appendChild(frag);
-  setTimeout(function(){ if(box.parentNode) box.remove(); }, desktop ? 4900 : 3900);
+  setTimeout(function(){ if(box.parentNode) box.remove(); }, desktop ? 9800 : 3900);
 })();
 </script>
 <script>
