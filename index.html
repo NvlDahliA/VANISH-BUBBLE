@@ -95,15 +95,69 @@
     display: block;
   }
   .navlinks{
-    display:flex; gap: clamp(18px, 3vw, 34px);
-    font-size: 13.5px;
-    color: var(--mist);
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 82px);
+    right: clamp(20px, 5vw, 56px);
+    width: min(340px, calc(100vw - 40px));
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 26px;
+    background: rgba(27,56,82,.98);
+    border: 1px solid var(--hair-strong);
+    box-shadow: 0 20px 60px rgba(0,0,0,.32);
+    color: var(--bone);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+    z-index: 60;
   }
-  .navlinks a{ transition: color .25s ease; position:relative; }
-  .navlinks a:hover{ color: var(--bone); }
+  .navlinks.is-open{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .navlinks a{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:17px 0;
+    border-bottom:1px solid var(--hair);
+    font-size:14px;
+    letter-spacing:.04em;
+    transition: color .25s ease;
+  }
+  .navlinks a:last-child{ border-bottom:0; }
+  .navlinks a span{
+    color:var(--sheen);
+    font-size:10px;
+    letter-spacing:.08em;
+  }
+  .navlinks a:hover{ color: var(--sheen); }
   .nav-right{
-    display:flex; align-items:center; gap: clamp(22px, 4vw, 40px);
+    display:flex; align-items:center; gap: 16px;
   }
+  .menu-toggle{
+    width:44px; height:44px;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    gap:6px; padding:0;
+    border:1px solid var(--hair-strong);
+    background:transparent; color:var(--bone);
+    cursor:pointer; flex:none;
+    transition:border-color .25s ease, background-color .25s ease;
+  }
+  .menu-toggle:hover{ border-color:var(--sheen); background:rgba(199,154,120,.08); }
+  .menu-toggle span{
+    display:block; width:19px; height:1px;
+    background:var(--bone);
+    transition:transform .22s ease, opacity .18s ease;
+  }
+  .menu-toggle[aria-expanded="true"] span:first-child{ transform:translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .menu-toggle[aria-expanded="true"] span:last-child{ transform:translateY(-7px) rotate(-45deg); }
   .shop-btn{
     font-family: var(--font-body);
     font-size: 12.5px;
@@ -116,7 +170,10 @@
   }
   .shop-btn:hover{ background: var(--sheen); color: var(--ink); }
   @media (max-width: 700px){
-    .navlinks{ display:none; }
+    .nav{ padding-top:16px; }
+    .navlinks{ top:calc(env(safe-area-inset-top, 0px) + 72px); right:20px; }
+    .shop-btn{ padding:8px 14px; }
+    .menu-toggle{ width:42px; height:42px; }
   }
 
   /* ---------- INTRO (many bubbles rise & pop) ---------- */
@@ -434,14 +491,17 @@
     <span>VANISH BUBBLE</span>
   </div>
   <div class="nav-right">
-    <nav class="navlinks">
-      <a href="#titles">Titles</a>
-      <a href="#news">News</a>
-      <a href="#results">Results</a>
-      <a href="#sponsors">Sponsors</a>
-      <a href="#contact">Contact</a>
-    </nav>
     <a class="shop-btn" href="https://novanish.official.ec/" target="_blank" rel="noopener noreferrer">SHOP</a>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="navlinks" id="site-menu" aria-label="サイトメニュー" aria-hidden="true">
+      <a href="#titles"><span>01</span> Titles</a>
+      <a href="#news"><span>02</span> News</a>
+      <a href="#results"><span>03</span> Results</a>
+      <a href="#sponsors"><span>04</span> Sponsors</a>
+      <a href="#contact"><span>05</span> Contact</a>
+    </nav>
   </div>
 </header>
 
@@ -579,6 +639,38 @@
   }
   box.appendChild(frag);
   setTimeout(function(){ box.remove(); }, 3200);
+})();
+</script>
+<script>
+(function(){
+  var toggle=document.querySelector('.menu-toggle');
+  var menu=document.getElementById('site-menu');
+  if(!toggle || !menu) return;
+  function closeMenu(){
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','メニューを開く');
+    menu.setAttribute('aria-hidden','true');
+    menu.classList.remove('is-open');
+  }
+  function openMenu(){
+    toggle.setAttribute('aria-expanded','true');
+    toggle.setAttribute('aria-label','メニューを閉じる');
+    menu.setAttribute('aria-hidden','false');
+    menu.classList.add('is-open');
+  }
+  toggle.addEventListener('click',function(){
+    if(toggle.getAttribute('aria-expanded')==='true') closeMenu();
+    else openMenu();
+  });
+  menu.querySelectorAll('a[href^="#"]').forEach(function(link){
+    link.addEventListener('click',closeMenu);
+  });
+  document.addEventListener('keydown',function(event){
+    if(event.key==='Escape') closeMenu();
+  });
+  document.addEventListener('click',function(event){
+    if(!menu.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+  });
 })();
 </script>
 </body>
