@@ -204,10 +204,9 @@
     background:
       radial-gradient(1000px 700px at 50% 115%, rgba(44,85,120,.85) 0%, transparent 65%),
       linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
-    animation: intro-overlay-out 0.55s ease 4.05s forwards;
-    animation-play-state: paused;
+    animation: none;
   }
-  .intro-overlay.is-playing{ animation-play-state: running; }
+  .intro-overlay.is-playing{ animation: intro-overlay-out 0.55s ease 4.05s forwards; }
   @keyframes intro-overlay-out{
     0%{ opacity:1; visibility:visible; }
     99.9%{ visibility:visible; }
@@ -229,7 +228,9 @@
     animation:
       bub-rise var(--dur) cubic-bezier(.3,.1,.35,1) var(--d) forwards,
       bub-pop .24s ease-in calc(var(--d) + var(--dur)) forwards;
+    animation-play-state: paused;
   }
+  .intro-overlay.is-playing .bub{ animation-play-state: running; }
   @keyframes bub-rise{
     0%{ transform: translate(0, 40px) scale(.6); opacity: 0; }
     12%{ opacity: 1; }
@@ -276,7 +277,7 @@
   /* Make the opening bubbles clearly visible on wide desktop screens. */
   @media (min-width: 701px) and (prefers-reduced-motion: no-preference){
     .intro-overlay{
-      animation: intro-overlay-out 0.55s ease 8.1s forwards;
+      animation: none;
       background:
         radial-gradient(1300px 800px at 50% 110%, rgba(44,85,120,.9) 0%, transparent 70%),
         linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
@@ -284,6 +285,10 @@
     .bub{
       box-shadow: inset 0 -6px 14px rgba(44,85,120,.45), 0 0 24px rgba(143,208,255,.52);
     }
+  }
+
+  @media (min-width: 701px) and (prefers-reduced-motion: no-preference){
+    .intro-overlay.is-playing{ animation: intro-overlay-out .55s ease 8.1s forwards; }
   }
 
   /* ---------- HERO ---------- */
@@ -674,11 +679,20 @@
     frag.appendChild(b);
   }
   box.appendChild(frag);
-  /* Start the overlay countdown only after all bubbles exist (large inline images can delay parsing). */
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){ box.classList.add('is-playing'); });
-  });
-  setTimeout(function(){ if(box.parentNode) box.remove(); }, desktop ? 9800 : 3900);
+  /* Start every animation from the same frame, after DOM and styles are ready. */
+  var started=false;
+  function startIntro(){
+    if(started) return;
+    started=true;
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        box.classList.add('is-playing');
+        setTimeout(function(){ if(box.parentNode) box.remove(); }, desktop ? 9800 : 4900);
+      });
+    });
+  }
+  if(document.readyState==='complete') startIntro();
+  else window.addEventListener('load',startIntro,{once:true});
 })();
 </script>
 <script>
