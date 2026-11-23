@@ -640,12 +640,13 @@
 (function(){
   var box=document.getElementById('intro'); if(!box) return;
   var cols=['#ffffff','#8fd0ff','#4aa3e8'];
-  var N=26, vh=window.innerHeight, frag=document.createDocumentFragment();
+  var desktop=window.matchMedia('(min-width: 701px)').matches;
+  var N=desktop?48:26, vh=window.innerHeight, frag=document.createDocumentFragment();
   for(var i=0;i<N;i++){
-    var size=Math.round(22+Math.random()*(i%5===0?90:52));
+    var size=Math.round(desktop ? (26+Math.random()*(i%5===0?105:62)) : (22+Math.random()*(i%5===0?90:52)));
     var dur=0.95+Math.random()*0.85, d=Math.random()*0.75;
     var x=(4+(i/(N-1))*92+(Math.random()-.5)*8);
-    var rise=-(vh*(0.35+Math.random()*0.55));
+    var rise=-(vh*(desktop ? (0.45+Math.random()*0.55) : (0.35+Math.random()*0.55)));
     var b=document.createElement('span'); b.className='bub';
     b.style.cssText='--x:'+x.toFixed(1)+'%;--s:'+size+'px;--dur:'+dur.toFixed(2)+'s;--d:'+d.toFixed(2)+'s;--rise:'+rise.toFixed(0)+'px;--sway:'+Math.round((Math.random()-.5)*60);
     for(var k=0;k<6;k++){
@@ -657,7 +658,7 @@
     frag.appendChild(b);
   }
   box.appendChild(frag);
-  setTimeout(function(){ box.remove(); }, 3200);
+  setTimeout(function(){ if(box.parentNode) box.remove(); }, 3200);
 })();
 </script>
 <script>
