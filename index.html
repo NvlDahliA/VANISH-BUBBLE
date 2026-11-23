@@ -205,7 +205,9 @@
       radial-gradient(1000px 700px at 50% 115%, rgba(44,85,120,.85) 0%, transparent 65%),
       linear-gradient(180deg, #14283b 0%, var(--wine) 100%);
     animation: intro-overlay-out 0.55s ease 4.05s forwards;
+    animation-play-state: paused;
   }
+  .intro-overlay.is-playing{ animation-play-state: running; }
   @keyframes intro-overlay-out{
     0%{ opacity:1; visibility:visible; }
     99.9%{ visibility:visible; }
@@ -267,7 +269,7 @@
   }
   @media (prefers-reduced-motion: reduce){
     /* Respect OS accessibility settings; keep a brief static intro instead of a blank frame. */
-    .intro-overlay{ animation: intro-overlay-out .15s linear .25s forwards !important; }
+    .intro-overlay{ display:none; }
     .wordmark .l1,.wordmark .l2,.hero-rule,.tagline,.scroll-cue{ opacity:1 !important; animation:none !important; }
   }
 
@@ -672,6 +674,10 @@
     frag.appendChild(b);
   }
   box.appendChild(frag);
+  /* Start the overlay countdown only after all bubbles exist (large inline images can delay parsing). */
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ box.classList.add('is-playing'); });
+  });
   setTimeout(function(){ if(box.parentNode) box.remove(); }, desktop ? 9800 : 3900);
 })();
 </script>
